@@ -11,10 +11,10 @@ import { MealDetail } from "../Pages/MealDetail";
 export const MainRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       <Route path="/editprofile" element={<PrivateRoute><EditProfile /></PrivateRoute>} />
       <Route path="/voice-companion" element={<PrivateRoute><VoiceCompanion /></PrivateRoute>} />
       <Route path="/meal/:mealId" element={<PrivateRoute><MealDetail /></PrivateRoute>} />

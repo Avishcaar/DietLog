@@ -17,17 +17,17 @@
   --color-text-tertiary: #6b7280;
 
   /* Primary Gradient Stops */
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
+  --color-primary-400: #34d399;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
 
   /* Accent Colors */
-  --color-accent-primary: #6366f1;
-  --color-accent-primary-hover: #7c3aed;
-  --color-accent-purple: #8b5cf6;
-  --color-accent-pink: #ec4899;
-  --color-accent-cyan: #06b6d4;
+  --color-accent-primary: #10b981;
+  --color-accent-primary-hover: #059669;
+  --color-accent-purple: #02d2e3;
+  --color-accent-pink: #f59e0b;
+  --color-accent-cyan: #02d2e3;
 
   /* Semantic Colors */
   --color-success-light: #34d399;
@@ -216,11 +216,11 @@ h6,
 
 .gradient-text {
   background: linear-gradient(90deg,
-      #6366f1 0%,
-      #8b5cf6 25%,
-      #ec4899 50%,
-      #8b5cf6 75%,
-      #6366f1 100%);
+      #10b981 0%,
+      #02d2e3 25%,
+      #f59e0b 50%,
+      #02d2e3 75%,
+      #10b981 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

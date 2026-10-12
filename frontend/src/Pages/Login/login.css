@@ -1,0 +1,311 @@
+/* ==========================================================================
+   HEALTHBOT AUTHENTICATION TELEMETRY (LOGIN & SIGNUP)
+   Obsidian & Electric Cyan • Oswald & Space Grotesk
+   ========================================================================== */
+
+.auth-telemetry-page {
+  background-color: #090a0b;
+  color: #ffffff;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  /* Top clearance to never collide with the fixed navbar */
+  padding-top: 110px;
+  padding-bottom: 5rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+.auth-telemetry-container {
+  max-width: 520px;
+  margin: 2rem auto 0;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.auth-telemetry-container.wide {
+  max-width: 760px;
+}
+
+/* Bracket Panel */
+.auth-bracket-panel {
+  position: relative;
+  background: #0e0f14;
+  border: 1px solid #1b1d24;
+  padding: 2.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .auth-bracket-panel {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* Precision Corner Brackets */
+.auth-bracket-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+.auth-bracket-tl {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid #02d2e3;
+  border-left: 2px solid #02d2e3;
+}
+
+.auth-bracket-tr {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid #02d2e3;
+  border-right: 2px solid #02d2e3;
+}
+
+.auth-bracket-bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid #02d2e3;
+  border-left: 2px solid #02d2e3;
+}
+
+.auth-bracket-br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid #02d2e3;
+  border-right: 2px solid #02d2e3;
+}
+
+/* Panel Header */
+.auth-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1.75rem;
+}
+
+.auth-eyebrow-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #02d2e3;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.auth-security-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: #7a7a7a;
+  text-transform: uppercase;
+}
+
+.auth-oswald-title {
+  margin: 0 0 0.85rem;
+  font-family: 'Oswald', Impact, sans-serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.auth-oswald-title .cyan-dot {
+  color: #02d2e3;
+}
+
+.auth-intro-copy {
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #b6c1c8;
+}
+
+/* Form Layout */
+.auth-telemetry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.signup-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 680px) {
+  .signup-fields-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.auth-field-group.full-span {
+  grid-column: 1 / -1;
+}
+
+.auth-field-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #02d2e3;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: default;
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #090a0b;
+  border: 1px solid #1b1d24;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  cursor: text;
+}
+
+.auth-input-wrapper:focus-within {
+  border-color: #02d2e3;
+  box-shadow: 0 0 16px rgba(2, 210, 227, 0.25);
+}
+
+.auth-field-icon {
+  padding-left: 1rem;
+  color: #7a7a7a;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.auth-text-input,
+.auth-select-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.95rem 1rem;
+  color: #ffffff;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.auth-select-input {
+  cursor: pointer;
+  background: #090a0b;
+  color: #ffffff;
+}
+
+.auth-select-input option {
+  background: #0e0f14;
+  color: #ffffff;
+}
+
+.auth-text-input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+/* Submit Button */
+.auth-action-cta {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.05rem 2rem;
+  background: #02d2e3;
+  color: #090a0b;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  transition: background 150ms ease, box-shadow 150ms ease;
+}
+
+.auth-action-cta:hover:not(:disabled) {
+  background: #25e5f5;
+  box-shadow: 0 0 20px rgba(2, 210, 227, 0.45);
+}
+
+.auth-action-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer Switch Row */
+.auth-panel-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.auth-footer-prompt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #7a7a7a;
+  text-transform: uppercase;
+}
+
+.auth-switch-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #02d2e3;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease;
+}
+
+.auth-switch-link:hover {
+  border-bottom-color: #02d2e3;
+}
+
+/* ==========================================================================
+   LEGACY / CROSS-COMPATIBILITY ALIASES
+   ========================================================================== */
+.auth-container,
+.auth-form-wrapper,
+.project-card {
+  cursor: default;
+}
+
+.btn-send-premium,
+.auth-link {
+  cursor: pointer;
+}

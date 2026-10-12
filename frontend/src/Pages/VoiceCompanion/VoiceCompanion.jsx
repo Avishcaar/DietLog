@@ -21,6 +21,16 @@ import {
 } from '@mui/icons-material';
 import Card from '../../Components/ui/Card';
 import './voiceCompanion.css';
+import '../home.css';
+
+const BracketCorners = () => (
+    <>
+        <span className="bracket-corner bracket-tl" aria-hidden="true" />
+        <span className="bracket-corner bracket-tr" aria-hidden="true" />
+        <span className="bracket-corner bracket-bl" aria-hidden="true" />
+        <span className="bracket-corner bracket-br" aria-hidden="true" />
+    </>
+);
 
 const CallStatus = {
     INACTIVE: 'INACTIVE',
@@ -220,25 +230,32 @@ export const VoiceCompanion = () => {
 
     return (
         <div className="page-container-glass voice-companion-container">
-            <Container maxWidth="lg" className="glass-content-wrapper">
+            <div className="telemetry-grid-canvas" aria-hidden="true" />
+            <div className="telemetry-ambient-radial" aria-hidden="true" />
+            <Container maxWidth="lg" className="glass-content-wrapper" style={{ position: 'relative', zIndex: 1 }}>
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="voice-header"
                 >
                     <div className="header-content">
-                        <h1 className="page-title">
-                            Health Companion
+                        <div className="telemetry-pill-mono" style={{ margin: '0 auto 1rem', display: 'inline-flex' }}>
+                            <span className="telemetry-dot-pulse" />
+                            <span>AI ADVISOR • REAL-TIME VOICE TELEMETRY</span>
+                        </div>
+                        <h1 className="voice-title-oswald">
+                            VOICE COMPANION<span className="emerald-dot">.</span>
                         </h1>
                         <p className="page-subtitle">
-                            Have a natural conversation about your health and nutrition goals
+                            Real-time natural voice consultation for your nutrition, macros, and metabolic wellness.
                         </p>
                     </div>
                 </motion.div>
 
                 <div className="voice-layout">
                     <div className="call-section">
-                        <Card variant="glass" className="call-card">
+                        <Card variant="glass" className="call-card bracket-telemetry-panel">
+                            <BracketCorners />
                             <div className="voice-visualizer">
                                 <AnimatePresence mode="wait">
                                     {callStatus === CallStatus.INACTIVE && (
@@ -388,7 +405,8 @@ export const VoiceCompanion = () => {
                     </div>
 
                     <div className="history-section">
-                        <Card variant="glass" className="history-card">
+                        <Card variant="glass" className="history-card bracket-telemetry-panel">
+                            <BracketCorners />
                             <div className="history-header">
                                 <HistoryIcon />
                                 <h3>Past Sessions</h3>
@@ -446,8 +464,9 @@ export const VoiceCompanion = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="modal-content"
+                            className="modal-content bracket-telemetry-panel"
                         >
+                            <BracketCorners />
                             <div className="modal-header">
                                 <div className="modal-title-group">
                                     <h3 className="modal-title">Conversation History</h3>

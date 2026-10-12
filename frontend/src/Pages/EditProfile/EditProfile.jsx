@@ -5,6 +5,16 @@ import API from "../../Components/api";
 import { Snackbar, Alert } from "@mui/material";
 import LoadingSpinner from "../../Components/ui/LoadingSpinner";
 import "./editprofile.css";
+import "../home.css";
+
+const BracketCorners = () => (
+  <>
+    <span className="bracket-corner bracket-tl" aria-hidden="true" />
+    <span className="bracket-corner bracket-tr" aria-hidden="true" />
+    <span className="bracket-corner bracket-bl" aria-hidden="true" />
+    <span className="bracket-corner bracket-br" aria-hidden="true" />
+  </>
+);
 
 const COUNTRIES = [
   { value: '', label: 'Select Country' },
@@ -169,9 +179,18 @@ export const EditProfile = () => {
 
   return (
     <div className="editprofile-container">
-      <div className="editprofile-card">
+      <div className="telemetry-grid-canvas" aria-hidden="true" />
+      <div className="telemetry-ambient-radial" aria-hidden="true" />
+
+      <div className="editprofile-card bracket-telemetry-panel" style={{ position: 'relative', zIndex: 1 }}>
+        <BracketCorners />
         <div className="editprofile-header">
-          <h1 className="editprofile-title">Edit Profile</h1>
+          <div className="telemetry-pill-mono" style={{ margin: '0 auto 1rem', display: 'inline-flex' }}>
+            <span className="telemetry-dot-pulse" />
+            <span>PROFILE TELEMETRY • USER CONFIG</span>
+          </div>
+          <h1 className="editprofile-title-oswald">EDIT PROFILE<span className="emerald-dot">.</span></h1>
+          <p className="editprofile-subtitle">Personalize your metabolic parameters, location, and dietary restrictions.</p>
         </div>
 
         <form onSubmit={handleUpdate} className="editprofile-form">
