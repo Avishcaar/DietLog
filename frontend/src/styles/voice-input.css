@@ -1,0 +1,137 @@
+/* ==========================================================================
+   TELEMETRY VOICE INPUT COMPONENT
+   ========================================================================== */
+
+.voice-input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    margin-top: 0.75rem;
+}
+
+.voice-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.mic-button {
+    width: 40px;
+    height: 40px;
+    background: #14161c;
+    border: 1px solid #2a2d36;
+    color: #b6c1c8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 150ms ease;
+    flex-shrink: 0;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+}
+
+.mic-button:hover:not(:disabled) {
+    border-color: #02d2e3;
+    color: #02d2e3;
+    background: rgba(2, 210, 227, 0.08);
+}
+
+.mic-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.mic-button.recording {
+    background: #02d2e3;
+    border-color: #02d2e3;
+    color: #090a0b;
+    box-shadow: 0 0 16px rgba(2, 210, 227, 0.5);
+    animation: pulseTelemetryMic 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseTelemetryMic {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(2, 210, 227, 0.4); }
+    50% { transform: scale(1.04); box-shadow: 0 0 24px rgba(2, 210, 227, 0.7); }
+}
+
+.voice-transcript {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    background: #090a0b;
+    border: 1px solid #02d2e3;
+    color: #ffffff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.875rem;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.voice-transcript-text {
+    color: #ffffff;
+}
+
+.voice-transcript-text.interim {
+    color: #02d2e3;
+    font-style: italic;
+}
+
+.listening-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #02d2e3;
+    text-transform: uppercase;
+}
+
+.listening-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.listening-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #02d2e3;
+    animation: dotBlink 1s infinite alternate;
+}
+
+.listening-dot:nth-child(2) { animation-delay: 0.2s; }
+.listening-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBlink {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+.voice-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.voice-error {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #ff6b6b;
+    text-transform: uppercase;
+}
+
+.voice-not-supported {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #ffd166;
+    padding: 0.5rem;
+}

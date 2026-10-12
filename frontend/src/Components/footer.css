@@ -1,0 +1,152 @@
+.footer-telemetry {
+    background: #090a0b;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    padding: 3.5rem 0 2.5rem;
+    overflow: hidden;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    color: #ffffff;
+}
+
+.footer-telemetry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(2, 210, 227, 0.45) 50%, transparent 100%);
+}
+
+.footer-telemetry-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
+
+.footer-telemetry-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .footer-telemetry-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.footer-telemetry-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.footer-brand-mark {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #02d2e3;
+    background: rgba(2, 210, 227, 0.12);
+    color: #02d2e3;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.footer-brand-title {
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.footer-brand-title .cyan-dot {
+    color: #02d2e3;
+}
+
+.footer-brand-sub {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #7a7a7a;
+    line-height: 1.5;
+    max-width: 24rem;
+}
+
+.footer-telemetry-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-telemetry-nav a {
+    color: #b6c1c8;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 150ms ease;
+    width: fit-content;
+}
+
+.footer-telemetry-nav a:hover {
+    color: #02d2e3;
+}
+
+.footer-telemetry-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+@media (min-width: 900px) {
+    .footer-telemetry-status {
+        align-items: flex-end;
+        text-align: right;
+    }
+}
+
+.footer-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: #0e0f14;
+    border: 1px solid #1b1d24;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #02d2e3;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.footer-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #02d2e3;
+    box-shadow: 0 0 8px #02d2e3;
+}
+
+.footer-copy-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}

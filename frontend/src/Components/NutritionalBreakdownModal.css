@@ -1,0 +1,331 @@
+/* ==========================================================================
+   TELEMETRY NUTRITIONAL BREAKDOWN MODAL
+   ========================================================================== */
+
+.telemetry-modal-container {
+    background: #0e0f14 !important;
+    color: #ffffff;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Modal Precision Corner Brackets */
+.modal-bracket-corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.modal-bracket-tl {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid #02d2e3;
+    border-left: 2px solid #02d2e3;
+}
+
+.modal-bracket-tr {
+    top: -1px;
+    right: -1px;
+    border-top: 2px solid #02d2e3;
+    border-right: 2px solid #02d2e3;
+}
+
+.modal-bracket-bl {
+    bottom: -1px;
+    left: -1px;
+    border-bottom: 2px solid #02d2e3;
+    border-left: 2px solid #02d2e3;
+}
+
+.modal-bracket-br {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid #02d2e3;
+    border-right: 2px solid #02d2e3;
+}
+
+/* Modal Header */
+.telemetry-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #090a0b;
+}
+
+.modal-header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #02d2e3;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    color: #7a7a7a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms ease;
+}
+
+.modal-close-btn:hover {
+    color: #ffffff;
+}
+
+/* Modal Body */
+.telemetry-modal-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.modal-item-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.modal-item-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.modal-item-name {
+    margin: 0;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+.modal-portion-badge {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.2rem 0.6rem;
+    background: #14161c;
+    border: 1px solid #1b1d24;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #02d2e3;
+    text-transform: uppercase;
+}
+
+/* Calorie Card */
+.modal-cal-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: #090a0b;
+    border: 1px solid #1b1d24;
+}
+
+.modal-flame-icon {
+    color: #02d2e3;
+}
+
+.modal-cal-text {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.modal-cal-value {
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.modal-cal-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+}
+
+/* Macro Grid */
+.modal-macros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.modal-macro-cell {
+    background: #090a0b;
+    border: 1px solid #1b1d24;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.macro-cell-head {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+}
+
+.macro-cell-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: #ffffff;
+}
+
+.macro-cell-stat span {
+    color: #7a7a7a;
+    font-size: 0.68rem;
+}
+
+.modal-track {
+    height: 4px;
+    background: #1b1d24;
+    overflow: hidden;
+}
+
+.modal-fill.pro {
+    height: 100%;
+    background: #02d2e3;
+}
+
+.modal-fill.cho {
+    height: 100%;
+    background: #39ff14;
+}
+
+.modal-fill.fat {
+    height: 100%;
+    background: #ffd166;
+}
+
+/* Micros Row */
+.modal-micros-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.modal-micro-pill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0.85rem;
+    background: #090a0b;
+    border: 1px solid #1b1d24;
+}
+
+.micro-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: #7a7a7a;
+    text-transform: uppercase;
+}
+
+.micro-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #ffffff;
+}
+
+/* Action Button */
+.telemetry-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.95rem 1.5rem;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+    transition: background 150ms ease, box-shadow 150ms ease;
+}
+
+.telemetry-modal-btn.primary {
+    background: #02d2e3;
+    color: #090a0b;
+}
+
+.telemetry-modal-btn.primary:hover {
+    background: #25e5f5;
+    box-shadow: 0 0 18px rgba(2, 210, 227, 0.45);
+}
+
+.telemetry-modal-btn.secondary {
+    background: #14161c;
+    border: 1px solid #2a2d36;
+    color: #ffffff;
+}
+
+.telemetry-modal-btn.secondary:hover {
+    border-color: #02d2e3;
+    color: #02d2e3;
+}
+
+/* Error State */
+.telemetry-modal-error {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.error-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-oswald-title {
+    margin: 0;
+    font-family: 'Oswald', Impact, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ff6b6b;
+}
+
+.error-body-copy {
+    margin: 0;
+    color: #b6c1c8;
+    font-size: 0.875rem;
+}
