@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import './profile.css';
+import './home.css';
 import CalCalendar from "../Components/CaloriesCalender/CalCalender";
 import {
   MenuItem, Select, TablePagination
@@ -10,7 +11,8 @@ import eating2Gif from '../assets/eating2.gif';
 import excerciseGif from '../assets/excercise.gif';
 import {
   Edit, TrendingUp, ChevronRight, Lock,
-  CalendarDays, Sun, Moon, Coffee, Utensils
+  CalendarDays, Sun, Moon, Coffee, Utensils,
+  Sparkles
 } from 'lucide-react';
 import {
   Chart as ChartJS,
@@ -24,8 +26,16 @@ import {
 } from 'chart.js';
 import ChartSection from "../Components/ChartSection";
 import API from "../Components/api";
-import Card from "../Components/ui/Card";
 import ProgressRing from "../Components/ui/ProgressRing";
+
+const BracketCorners = () => (
+  <>
+    <span className="bracket-corner bracket-tl" aria-hidden="true" />
+    <span className="bracket-corner bracket-tr" aria-hidden="true" />
+    <span className="bracket-corner bracket-bl" aria-hidden="true" />
+    <span className="bracket-corner bracket-br" aria-hidden="true" />
+  </>
+);
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -252,22 +262,34 @@ export const Profile = () => {
           initial="hidden"
           animate="visible"
           variants={containerVariants}
+          style={{ paddingTop: '100px', position: 'relative' }}
         >
-          <motion.div className="profile-header-human" variants={itemVariants}>
-            <div className="header-greeting">
-              <span className="greeting-pill">{getTimeGreeting()}</span>
-              <h1 className="human-name">{userProfile.name}</h1>
-            </div>
+          {/* Background Matrix Grid */}
+          <div className="telemetry-grid-canvas" aria-hidden="true" />
+          <div className="telemetry-ambient-radial" aria-hidden="true" />
 
-            <button onClick={() => navigate('/editprofile')} className="btn-edit-minimal">
-              <Edit size={16} />
-              <span>Edit Profile</span>
-            </button>
+          <motion.div className="intro-grid bracket-telemetry-panel" variants={itemVariants} style={{ paddingTop: '1.75rem', paddingBottom: '1.75rem', marginBottom: '2rem', position: 'relative' }}>
+            <BracketCorners />
+            <div>
+              <div className="status-indicator-tag" style={{ marginBottom: '10px' }}>
+                <span className="telemetry-live-dot" />
+                <span>Nutrition Telemetry Profile</span>
+              </div>
+              <p className="section-kicker" style={{ marginBottom: '6px', fontSize: '0.82rem', fontFamily: 'var(--font-mono)' }}>{getTimeGreeting()}</p>
+              <h1 className="hero-oswald-title" style={{ fontSize: '2.5rem', margin: '0 0 1rem 0' }}>
+                {userProfile.name}<span className="emerald-text">.</span>
+              </h1>
+              <button onClick={() => navigate('/editprofile')} className="btn-edit-minimal">
+                <Edit size={15} />
+                <span>Edit Profile</span>
+              </button>
+            </div>
           </motion.div>
 
           <div className="wellness-pillars">
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="pillar-card">
+              <div className="stat-card bracket-telemetry-panel">
+                <BracketCorners />
                 <div className="pillar-icon-wrapper primary">
                   <TrendingUp size={20} />
                 </div>
@@ -281,11 +303,12 @@ export const Profile = () => {
                   </div>
                   <p className="pillar-insight">Based on your height & weight</p>
                 </div>
-              </Card>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="pillar-card">
+              <div className="stat-card bracket-telemetry-panel">
+                <BracketCorners />
                 <div className="pillar-icon-wrapper secondary">
                   <div className="gif-icon-container">
                     <img src={excerciseGif} alt="Exercise" className="pillar-gif-icon" />
@@ -299,11 +322,12 @@ export const Profile = () => {
                   </div>
                   <p className="pillar-insight">Recommended for your goal</p>
                 </div>
-              </Card>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="pillar-card">
+              <div className="stat-card bracket-telemetry-panel">
+                <BracketCorners />
                 <div className="pillar-icon-wrapper accent">
                   <CalendarDays size={20} />
                 </div>
@@ -315,13 +339,14 @@ export const Profile = () => {
                   </div>
                   <p className="pillar-insight">Entries this period</p>
                 </div>
-              </Card>
+              </div>
             </motion.div>
           </div>
 
           <div className="dashboard-grid">
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="nutrition-insight-card">
+              <div className="project-card nutrition-insight-card bracket-telemetry-panel">
+                <BracketCorners />
                 <div className="card-header-human">
                   <h3>Today's Micros Intake</h3>
                 </div>
@@ -347,7 +372,7 @@ export const Profile = () => {
                         size={120}
                         strokeWidth={8}
                         label="Energy"
-                        color="#6366f1"
+                        color="#10b981"
                         animated
                       />
                     </div>
@@ -382,11 +407,12 @@ export const Profile = () => {
                     </div>
                   </div>
                 )}
-              </Card>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="journal-card">
+              <div className="project-card journal-card bracket-telemetry-panel">
+                <BracketCorners />
                 <div className="journal-header">
                   <div>
                     <h3 className="section-title-human">Your Log</h3>
@@ -483,11 +509,12 @@ export const Profile = () => {
                     className="human-pagination"
                   />
                 )}
-              </Card>
+              </div>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Card variant="glass" className="calendar-card-human">
+              <div className="project-card calendar-card-human bracket-telemetry-panel">
+                <BracketCorners />
                 <h3 className="section-title-human">Consistency Tracker</h3>
                 <CalCalendar
                   selectedDayEntries={selectedDayEntries}
@@ -498,47 +525,48 @@ export const Profile = () => {
                   requiredFats={requiredFats}
                   onDateClick={(date) => setSelectedDate(date)}
                 />
-              </Card>
+              </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="chart-section-human">
+            <motion.div variants={itemVariants} className="chart-section-human bracket-telemetry-panel" style={{ position: 'relative' }}>
+              <BracketCorners />
               <ChartSection calories={calories} />
             </motion.div>
           </div>
         </motion.div>
       ) : (
         <div className="profile-container not-authorized-container">
-          <Card variant="glass" className="not-auth-card minimal">
+          <div className="project-card not-auth-card minimal" style={{ padding: '40px', minHeight: 'auto', margin: 'auto' }}>
             <div className="not-auth-content minimal">
               <div className="lock-icon-minimal">
                 <Lock size={32} />
               </div>
 
               <div className="not-auth-header">
-                <h1 className="not-auth-title">Sign In Required</h1>
-                <p className="not-auth-subtitle">
+                <h1 className="not-auth-title" style={{ color: 'var(--home-text)', fontWeight: 800 }}>Sign In Required</h1>
+                <p className="not-auth-subtitle" style={{ color: 'var(--home-muted)' }}>
                   Please log in to view specific details about your profile and stats.
                 </p>
               </div>
 
-              <div className="auth-actions-row">
+              <div className="auth-actions-row" style={{ display: 'flex', gap: '16px' }}>
                 <button
                   onClick={() => navigate('/login')}
-                  className="btn-login-large gradient-primary">
-                  <span>Sign In</span>
+                  className="btn-send-premium" style={{ padding: '12px 24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontWeight: 800 }}>Sign In</span>
                   <ChevronRight size={20} />
                 </button>
 
                 <button
                   onClick={() => navigate('/signup')}
-                  className="btn-signup-outline"
+                  className="btn-edit-minimal" style={{ border: 'none', background: 'transparent' }}
                 >
                   Create Account
                 </button>
               </div>
 
             </div>
-          </Card>
+          </div>
         </div>
       )}
     </>

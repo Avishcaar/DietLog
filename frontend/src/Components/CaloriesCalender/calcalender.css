@@ -31,7 +31,7 @@
 
 .chakra-select:focus {
   border-color: var(--color-accent-primary) !important;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
 }
 
 .chakra-select option {
@@ -42,10 +42,10 @@
 .react-calendar {
   border-radius: 1rem;
   padding: 1.5rem;
-  background: var(--color-surface);
-  backdrop-filter: blur(6px);
-  font-family: 'Inter', sans-serif;
-  border: 1px solid var(--color-border);
+  background: rgba(14, 18, 20, 0.7);
+  backdrop-filter: blur(12px);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease-in-out;
   color: var(--color-text-primary);
 }
@@ -63,19 +63,19 @@
 }
 
 .react-calendar__tile:hover {
-  background-color: rgba(99, 102, 241, 0.2);
+  background-color: rgba(16, 185, 129, 0.15);
   cursor: pointer;
   transform: scale(1.05);
 }
 
 .react-calendar__tile--now {
-  background-color: rgba(99, 102, 241, 0.25);
-  color: var(--color-accent-primary);
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #10b981;
   font-weight: bold;
 }
 
 .react-calendar__tile--active {
-  background-color: rgba(99, 102, 241, 0.4);
+  background-color: rgba(16, 185, 129, 0.35);
   color: white;
   font-weight: bold;
 }
@@ -89,15 +89,15 @@
   border: none;
   font-size: 1rem;
   font-weight: bold;
-  color: var(--color-accent-primary);
+  color: #10b981;
   transition: color 0.3s ease;
   min-width: 44px;
   border-radius: 0.5rem;
 }
 
 .react-calendar__navigation button:hover {
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--color-accent-primary-hover);
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
 }
 
 .react-calendar__month-view__weekdays {

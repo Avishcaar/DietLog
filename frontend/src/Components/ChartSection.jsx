@@ -57,13 +57,20 @@ const ChartSection = ({ calories }) => {
     weekdaySums.carbs[day] += carbs;
   });
 
+  const metricColors = {
+    calories: 'rgba(16, 185, 129, 0.75)',
+    proteins: 'rgba(2, 210, 227, 0.75)',
+    carbs: 'rgba(245, 158, 11, 0.75)',
+    fats: 'rgba(132, 204, 22, 0.75)',
+  };
+
   const chartData = {
     labels: weekdays,
     datasets: [
       {
         label: `${selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} per day`,
         data: weekdaySums[selectedMetric],
-        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        backgroundColor: metricColors[selectedMetric] || 'rgba(16, 185, 129, 0.75)',
         borderRadius: 6,
       },
     ],
@@ -78,10 +85,10 @@ const ChartSection = ({ calories }) => {
       tooltip: {
         mode: 'index',
         intersect: false,
-        backgroundColor: 'rgba(30, 37, 48, 0.9)',
+        backgroundColor: 'rgba(14, 18, 20, 0.95)',
         titleColor: '#fff',
         bodyColor: '#fff',
-        borderColor: 'rgba(99, 102, 241, 0.3)',
+        borderColor: 'rgba(16, 185, 129, 0.4)',
         borderWidth: 1
       },
     },
@@ -129,18 +136,18 @@ const ChartSection = ({ calories }) => {
         sx={{
           mb: 2,
           minWidth: { xs: '120px', sm: 180 },
-          backgroundColor: 'rgba(30, 37, 48, 0.8)',
+          backgroundColor: 'rgba(14, 18, 20, 0.8)',
           color: '#e6e8eb',
           borderRadius: '0.75rem',
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgba(148, 163, 184, 0.2)',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'rgba(99, 102, 241, 0.3)',
+            borderColor: 'rgba(16, 185, 129, 0.4)',
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#6366f1',
-            boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.1)',
+            borderColor: '#10b981',
+            boxShadow: '0 0 0 3px rgba(16, 185, 129, 0.2)',
           },
           '& .MuiSvgIcon-root': {
             color: '#9ca3af',

@@ -17,6 +17,16 @@ import API from '../Components/api';
 import LoadingSpinner from '../Components/ui/LoadingSpinner';
 import foodLoader from '../assets/illustrations/foodbyjag.gif';
 import './MealDetail.css';
+import './home.css';
+
+const BracketCorners = () => (
+    <>
+        <span className="bracket-corner bracket-tl" aria-hidden="true" />
+        <span className="bracket-corner bracket-tr" aria-hidden="true" />
+        <span className="bracket-corner bracket-bl" aria-hidden="true" />
+        <span className="bracket-corner bracket-br" aria-hidden="true" />
+    </>
+);
 
 export const MealDetail = () => {
     const location = useLocation();
@@ -121,9 +131,10 @@ export const MealDetail = () => {
 
     return (
         <div className="meal-page">
+            <div className="telemetry-grid-canvas" aria-hidden="true" />
+            <div className="telemetry-ambient-radial" aria-hidden="true" />
 
-
-            <div className="page-scroll">
+            <div className="page-scroll" style={{ position: 'relative', zIndex: 1 }}>
                 <div className="meal-hero-section">
                     <div className="meal-hero-gradient"></div>
 
@@ -139,8 +150,8 @@ export const MealDetail = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
                         >
-                            <span className="meal-type-badge">{meal.tags?.[0] || 'Recommended'}</span>
-                            <h1 className="meal-hero-title">{meal.name}</h1>
+                            <span className="meal-type-badge">{meal.tags?.[0] || 'NUTRITION TELEMETRY'}</span>
+                            <h1 className="meal-hero-title-oswald">{meal.name}<span className="emerald-dot">.</span></h1>
                             <p className="meal-hero-subtitle">{meal.description}</p>
 
                             <div className="meal-hero-meta">
@@ -161,11 +172,12 @@ export const MealDetail = () => {
                 </div>
 
                 <motion.div
-                    className="stats-bar"
+                    className="stats-bar bracket-telemetry-panel"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
                 >
+                    <BracketCorners />
                     <div className="stat-item">
                         <span className="stat-value">{meal.proteins}g</span>
                         <span className="stat-label">protein</span>
@@ -189,11 +201,12 @@ export const MealDetail = () => {
 
                 <div className="content-wrapper">
                     <motion.section
-                        className="ingredients-section"
+                        className="ingredients-section bracket-telemetry-panel"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
+                        <BracketCorners />
                         <div className="section-header">
                             <h2>What You'll Need</h2>
                             {progress > 0 && (
@@ -242,11 +255,12 @@ export const MealDetail = () => {
                     </motion.section>
 
                     <motion.section
-                        className="instructions-section"
+                        className="instructions-section bracket-telemetry-panel"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                     >
+                        <BracketCorners />
                         <div className="section-header">
                             <h2>Let's Make It</h2>
                         </div>
@@ -288,11 +302,12 @@ export const MealDetail = () => {
 
                     {detailedRecipe?.tips?.length > 0 && (
                         <motion.section
-                            className="tips-section"
+                            className="tips-section bracket-telemetry-panel"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
+                            <BracketCorners />
                             <h2>Chef's Tips</h2>
                             <div className="tips-list">
                                 {detailedRecipe.tips.slice(0, 2).map((tip, idx) => (
