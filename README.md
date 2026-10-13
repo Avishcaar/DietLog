@@ -5,7 +5,7 @@ DietLog is a web application that helps users track their daily food intake and 
 ## Deployment
 
 
--[FrontEnd Deployed Link](https://health-bot-olive.vercel.app/)
+-[FrontEnd Deployed Link](https://dietlog.onrender.com)
 
 -[BackEnd Deployed Link](https://healthbotbackend-production.up.railway.app)
 
