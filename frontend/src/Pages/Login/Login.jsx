@@ -3,7 +3,7 @@ import { useAuth } from "../../Components/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../../Components/api";
 import { Snackbar, Alert } from "@mui/material";
-import { ArrowRight, Mail, Lock, ShieldCheck, Activity } from "lucide-react";
+import { ArrowRight, Mail, Lock, Activity } from "lucide-react";
 import LoadingSpinner from "../../Components/ui/LoadingSpinner";
 import "./login.css";
 

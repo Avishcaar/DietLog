@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../Components/authContext';
 import {
   Alert,
@@ -8,7 +8,6 @@ import {
   Send as SendIcon,
 } from '@mui/icons-material';
 import {
-  Activity,
   Bot,
   Camera,
   Keyboard,

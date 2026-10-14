@@ -8,14 +8,9 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import {
   RotateCcw,
   Sparkles,
-  Maximize2,
-  Minimize2,
   Play,
   Pause,
-  Layers,
-  Activity,
   Sliders,
-  Eye,
 } from 'lucide-react';
 import './boolean4-glass.css';
 
@@ -513,6 +508,7 @@ export const Boolean4GlassCanvas = ({
     BASE_DEPTH,
     MAX_DEPTH_SCALE,
     chromaticAberration,
+    interactive,
   ]);
 
   const handleResetCamera = () => {

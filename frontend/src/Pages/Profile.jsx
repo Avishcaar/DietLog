@@ -11,8 +11,7 @@ import eating2Gif from '../assets/eating2.gif';
 import excerciseGif from '../assets/excercise.gif';
 import {
   Edit, TrendingUp, ChevronRight, Lock,
-  CalendarDays, Sun, Moon, Coffee, Utensils,
-  Sparkles
+  CalendarDays, Sun, Moon, Coffee, Utensils
 } from 'lucide-react';
 import {
   Chart as ChartJS,
