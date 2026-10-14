@@ -15,6 +15,46 @@ const {
   buildMealPrompt
 } = require('../utils/nutritionHelpers');
 
+/**
+ * Resilient Groq chat completions caller with automatic model fallback.
+ * Prevents 500 crashes when Groq decommissions, updates, or rate-limits specific models.
+ */
+async function callGroqChat(messages, options = {}) {
+  const modelsToTry = [
+    process.env.GROQ_MODEL,
+    'openai/gpt-oss-120b',
+    'openai/gpt-oss-20b',
+    'qwen/qwen3.8-27b'
+  ].filter(Boolean);
+
+  let lastError = null;
+  for (const model of modelsToTry) {
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.Groq}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          ...options
+        }),
+      });
+      const data = await response.json();
+      if (response.ok && data.choices && data.choices[0] && data.choices[0].message) {
+        return data;
+      }
+      console.warn(`[Groq Warning] Model "${model}" failed:`, data.error ? data.error.message : data);
+      lastError = data.error || data;
+    } catch (err) {
+      console.warn(`[Groq Error] Network/fetch failed for "${model}":`, err.message);
+      lastError = err;
+    }
+  }
+  throw new Error(lastError ? (lastError.message || JSON.stringify(lastError)) : 'All Groq models failed');
+}
 
 const storage = multer.memoryStorage();
 const upload = multer({
@@ -109,34 +149,14 @@ userRouter.post('/query', async (req, res) => {
   try {
     const { query } = req.body;
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.Groq}`,
-        'Content-Type': 'application/json',
+    const data = await callGroqChat([
+      {
+        role: 'system',
+        content:
+          "You are a helpful nutrition assistant. Only answer questions related to food nutrition and your response will have calories, proteins, carbohydrates, fats, fiber, and sugar. The response should not be in range it should always be a number. If user specifies specific amount then make your response according to it. Here is some example: 'How many calories are in 200g of chicken breast?' and the answer should be '300 40 5 0 0 0 200 Chicken Breast' (In this response first number is calories, second number is proteins, third number is carbohydrates, fourth number is fats, fifth number is fiber, sixth number is sugar, seventh number is amount and finally the food item name). 'How many calories are in chicken breast?' OR 'Ice cream' OR 'Ice cream nutrition' OR 'Ice cream calories' OR 'Ice cream fats' OR 'Ice cream proteins' and your response to all such questions should have following format '160 20 0 100 0 20 100 Chicken Breast', Notice the second question is not specific about the amount but you are still giving the answer in 100g. If user asks about the calories in a specific amount then give the answer according to that amount. If user is asking about nutrition of an item that is not eaten by humans or any random question then just respond with 'NO! dont me that, i can only help if you ask for nutrition of a food item, (witty reply)' notice after 'NO! dont ask me that, i can only help if you ask for nutrition of a food item' i have written 'witty reply' which means your response to such questions should always have 'NO! dont ask me that, i can only help if you ask for nutrition of a food item' in start then you can add a witty line troll the user for asking that question. For example: 'How many calories in sun rays?' 'NO! dont ask me such questions, i can only help if you ask for nutrition of a food item. Btw, maybe you should ask jadoo about that'. In this example to give a witty reply i used a reference of an alien called jadoo from a movie called koi mil gaya who users sun rays as source of energy. If User aks nutition by using quantity in numbers like one egg then also reponse by assuming quantity in 100 grams",
       },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          {
-            role: 'system',
-            content:
-              "You are a helpful nutrition assistant. Only answer questions related to food nutrition and your response will have calories, proteins, carbohydrates, fats, fiber, and sugar. The response should not be in range it should always be a number. If user specifies specific amount then make your response according to it. Here is some example: 'How many calories are in 200g of chicken breast?' and the answer should be '300 40 5 0 0 0 200 Chicken Breast' (In this response first number is calories, second number is proteins, third number is carbohydrates, fourth number is fats, fifth number is fiber, sixth number is sugar, seventh number is amount and finally the food item name). 'How many calories are in chicken breast?' OR 'Ice cream' OR 'Ice cream nutrition' OR 'Ice cream calories' OR 'Ice cream fats' OR 'Ice cream proteins' and your response to all such questions should have following format '160 20 0 100 0 20 100 Chicken Breast', Notice the second question is not specific about the amount but you are still giving the answer in 100g. If user asks about the calories in a specific amount then give the answer according to that amount. If user is asking about nutrition of an item that is not eaten by humans or any random question then just respond with 'NO! dont me that, i can only help if you ask for nutrition of a food item, (witty reply)' notice after 'NO! dont ask me that, i can only help if you ask for nutrition of a food item' i have written 'witty reply' which means your response to such questions should always have 'NO! dont ask me that, i can only help if you ask for nutrition of a food item' in start then you can add a witty line troll the user for asking that question. For example: 'How many calories in sun rays?' 'NO! dont ask me such questions, i can only help if you ask for nutrition of a food item. Btw, maybe you should ask jadoo about that'. In this example to give a witty reply i used a reference of an alien called jadoo from a movie called koi mil gaya who users sun rays as source of energy. If User aks nutition by using quantity in numbers like one egg then also reponse by assuming quantity in 100 grams",
-          },
-          { role: 'user', content: query },
-        ],
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-      console.error('Invalid API response structure:', data);
-      return res.status(500).json({
-        error: 'Invalid API response',
-        details: data.error || 'Unexpected response format from Groq API'
-      });
-    }
+      { role: 'user', content: query },
+    ]);
 
     const answer = data.choices[0].message.content;
     res.status(200).json({ reply: answer });
@@ -597,32 +617,15 @@ userRouter.post('/meal-recommendations', auth, async (req, res) => {
     );
 
     try {
-      const result = await retryWithBackoff(async () => {
-        return await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${process.env.Groq}`,
-            'Content-Type': 'application/json',
+      const data = await retryWithBackoff(async () => {
+        return await callGroqChat([
+          {
+            role: 'system',
+            content: 'You are a professional nutritionist specializing in regional cuisines and personalized meal planning. Generate culturally appropriate meal recommendations based on the user\'s location, dietary restrictions, and eating history. Always respond with valid JSON only. No markdown, no code blocks.'
           },
-          body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [
-              {
-                role: 'system',
-                content: 'You are a professional nutritionist specializing in regional cuisines and personalized meal planning. Generate culturally appropriate meal recommendations based on the user\'s location, dietary restrictions, and eating history. Always respond with valid JSON only. No markdown, no code blocks.'
-              },
-              { role: 'user', content: prompt }
-            ],
-          }),
-        });
+          { role: 'user', content: prompt }
+        ]);
       });
-
-      const data = await result.json();
-
-      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-        console.error('Invalid Groq API response:', data);
-        throw new Error('Invalid API response structure');
-      }
 
       let textResponse = data.choices[0].message.content;
 
@@ -764,29 +767,13 @@ Respond with ONLY valid JSON (no markdown):
   }
 }`;
 
-    const result = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.Groq}`,
-        'Content-Type': 'application/json',
+    const data = await callGroqChat([
+      {
+        role: 'system',
+        content: 'You are a professional chef and nutritionist. Provide detailed, practical cooking instructions. Always respond with valid JSON only.'
       },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a professional chef and nutritionist. Provide detailed, practical cooking instructions. Always respond with valid JSON only.'
-          },
-          { role: 'user', content: prompt }
-        ],
-      }),
-    });
-
-    const data = await result.json();
-
-    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-      throw new Error('Invalid API response');
-    }
+      { role: 'user', content: prompt }
+    ]);
 
     let textResponse = data.choices[0].message.content;
     textResponse = textResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
