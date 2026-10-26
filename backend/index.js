@@ -10,6 +10,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
+  'https://dietlog-41ua.onrender.com',
   'https://health-bot-olive.vercel.app',
   'https://health-fjb6cfnq4-aavishkarkgmailcoms-projects.vercel.app'
 ];
